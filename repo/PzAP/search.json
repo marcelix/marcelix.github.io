@@ -1,0 +1,132 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Notes for PzAP",
+    "section": "",
+    "text": "Preface\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "This is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. (USA) 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "PzAP_live_2026_10_14.html",
+    "href": "PzAP_live_2026_10_14.html",
+    "title": "2  PzAP bilješke, 14.10.2026.",
+    "section": "",
+    "text": "2.1 Primjer\nNastavak igre s titanic skupom podataka.\nPrikazivanje samo nekih stupaca.\ndf[[\"who\", \"class\", \"age\"]].head()\n\n\n\n\n\n\n\n\nwho\nclass\nage\n\n\n\n\n0\nman\nThird\n22.0\n\n\n1\nwoman\nFirst\n38.0\n\n\n2\nwoman\nThird\n26.0\n\n\n3\nwoman\nFirst\n35.0\n\n\n4\nman\nThird\n35.0",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>PzAP bilješke, 14.10.2026.</span>"
+    ]
+  },
+  {
+    "objectID": "PzAP_live_2026_10_14.html#zadatak",
+    "href": "PzAP_live_2026_10_14.html#zadatak",
+    "title": "2  PzAP bilješke, 14.10.2026.",
+    "section": "2.2 Zadatak",
+    "text": "2.2 Zadatak\nUsporedite class (putnička klasa) i deck (paluba) stupce. Opišite u kakvom su odnosu.\n\ndf.info()\n\n&lt;class 'pandas.DataFrame'&gt;\nRangeIndex: 891 entries, 0 to 890\nData columns (total 15 columns):\n #   Column       Non-Null Count  Dtype   \n---  ------       --------------  -----   \n 0   survived     891 non-null    int64   \n 1   pclass       891 non-null    int64   \n 2   sex          891 non-null    str     \n 3   age          714 non-null    float64 \n 4   sibsp        891 non-null    int64   \n 5   parch        891 non-null    int64   \n 6   fare         891 non-null    float64 \n 7   embarked     889 non-null    str     \n 8   class        891 non-null    category\n 9   who          891 non-null    str     \n 10  adult_male   891 non-null    bool    \n 11  deck         203 non-null    category\n 12  embark_town  889 non-null    str     \n 13  alive        891 non-null    str     \n 14  alone        891 non-null    bool    \ndtypes: bool(2), category(2), float64(2), int64(4), str(5)\nmemory usage: 80.7 KB\n\n\nUnakrsna tablica (cross-tabulation) između stupaca ‘class’ i ‘deck’\n\ncross_tab = pd.crosstab(df['class'], df['deck'], margins=True)\ndisplay(cross_tab)\n\n\n\n\n\n\n\ndeck\nA\nB\nC\nD\nE\nF\nG\nAll\n\n\nclass\n\n\n\n\n\n\n\n\n\n\n\n\nFirst\n15\n47\n59\n29\n25\n0\n0\n175\n\n\nSecond\n0\n0\n0\n4\n4\n8\n0\n16\n\n\nThird\n0\n0\n0\n0\n3\n5\n4\n12\n\n\nAll\n15\n47\n59\n33\n32\n13\n4\n203\n\n\n\n\n\n\n\nNe bismo rekli da ovdje ima redundantnih podataka, ali dostupni podaci potvrđuju što je poznato o smještaju putnika na palubama Titanica:\n\nThe Titanic was designed to enforce a rigid social hierarchy, with passengers segregated strictly by their ticket class.\n• First Class (The Upper Decks): First-class passengers occupied the most luxurious areas of the ship, primarily on A, B, and C Decks. They had exclusive access to the Boat Deck promenades, the gym, the squash court (on G Deck), and the Titanic Grand Staircase. Their cabins were closest to the lifeboats.\n• Second Class (Middle to Aft Decks): Second-class accommodations were located mainly toward the back (aft) of the ship, spanning D, E, and F Decks. They had their own dedicated smoking room, library, and dining saloon.\n• Third Class / Steerage (Lower Decks & Outer Ends): Third-class passengers were housed in the least desirable sections, subject to the noise and vibration of the propellers and engines. They were split by gender: single men slept in the bow (front) on D through G Decks, while single women and families were housed in the stern (back).",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>PzAP bilješke, 14.10.2026.</span>"
+    ]
+  },
+  {
+    "objectID": "PzAP_live_2026_10_14.html#zadatak-1",
+    "href": "PzAP_live_2026_10_14.html#zadatak-1",
+    "title": "2  PzAP bilješke, 14.10.2026.",
+    "section": "2.3 Zadatak",
+    "text": "2.3 Zadatak\nU nastavku nam neki stupci tablice neće biti potrebni pa ćemo ih obrisati.\n\ncols = [\"survived\", \"pclass\", \"embarked\", \"sibsp\", \"parch\"]\n\nfor c in cols:\n    try:\n        del df[c]\n    except:\n        pass # ignore, already deleted.\n\ndf.head()\n\n\n\n\n\n\n\n\nsex\nage\nfare\nclass\nwho\nadult_male\ndeck\nembark_town\nalive\nalone\n\n\n\n\n0\nmale\n22.0\n7.2500\nThird\nman\nTrue\nNaN\nSouthampton\nno\nFalse\n\n\n1\nfemale\n38.0\n71.2833\nFirst\nwoman\nFalse\nC\nCherbourg\nyes\nFalse\n\n\n2\nfemale\n26.0\n7.9250\nThird\nwoman\nFalse\nNaN\nSouthampton\nyes\nTrue\n\n\n3\nfemale\n35.0\n53.1000\nFirst\nwoman\nFalse\nC\nSouthampton\nyes\nFalse\n\n\n4\nmale\n35.0\n8.0500\nThird\nman\nTrue\nNaN\nSouthampton\nno\nTrue",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>PzAP bilješke, 14.10.2026.</span>"
+    ]
+  },
+  {
+    "objectID": "PzAP_live_2026_10_14.html#o-stupcima-i-retcima",
+    "href": "PzAP_live_2026_10_14.html#o-stupcima-i-retcima",
+    "title": "2  PzAP bilješke, 14.10.2026.",
+    "section": "2.4 O stupcima i retcima",
+    "text": "2.4 O stupcima i retcima\nDataFrame objekti imaju dva indeksa: - df.index koji indeksira retke; - df.columns koji prebraja stupce\n\nprint(\" \".join(df.columns))\n\nsex age fare class who adult_male deck embark_town alive alone\n\n\nU našem trenutnom primjeru retci su indeksirani brojevima od 0 do 890.\n\ndf.index\n\nRangeIndex(start=0, stop=891, step=1)\n\n\nUskoro ćemo raditi s podacima kod kojih su mogući (ili zadani) nešto zanimljiviji indeksi.\nZa ovaj skup podataka nijedan stupac trenutno nije bolji kandidat za indeks.\nAko želimo pristupiti dijelu redaka preko njihovog indeksa, to možemo s .iloc metodom.\n\ndf.iloc[:5] # isti rezultat kao i .head()\n\n\n\n\n\n\n\n\nsex\nage\nfare\nclass\nwho\nadult_male\ndeck\nembark_town\nalive\nalone\n\n\n\n\n0\nmale\n22.0\n7.2500\nThird\nman\nTrue\nNaN\nSouthampton\nno\nFalse\n\n\n1\nfemale\n38.0\n71.2833\nFirst\nwoman\nFalse\nC\nCherbourg\nyes\nFalse\n\n\n2\nfemale\n26.0\n7.9250\nThird\nwoman\nFalse\nNaN\nSouthampton\nyes\nTrue\n\n\n3\nfemale\n35.0\n53.1000\nFirst\nwoman\nFalse\nC\nSouthampton\nyes\nFalse\n\n\n4\nmale\n35.0\n8.0500\nThird\nman\nTrue\nNaN\nSouthampton\nno\nTrue\n\n\n\n\n\n\n\n\ndf.iloc[10:20]\n\n\n\n\n\n\n\n\nsex\nage\nfare\nclass\nwho\nadult_male\ndeck\nembark_town\nalive\nalone\n\n\n\n\n10\nfemale\n4.0\n16.7000\nThird\nchild\nFalse\nG\nSouthampton\nyes\nFalse\n\n\n11\nfemale\n58.0\n26.5500\nFirst\nwoman\nFalse\nC\nSouthampton\nyes\nTrue\n\n\n12\nmale\n20.0\n8.0500\nThird\nman\nTrue\nNaN\nSouthampton\nno\nTrue\n\n\n13\nmale\n39.0\n31.2750\nThird\nman\nTrue\nNaN\nSouthampton\nno\nFalse\n\n\n14\nfemale\n14.0\n7.8542\nThird\nchild\nFalse\nNaN\nSouthampton\nno\nTrue\n\n\n15\nfemale\n55.0\n16.0000\nSecond\nwoman\nFalse\nNaN\nSouthampton\nyes\nTrue\n\n\n16\nmale\n2.0\n29.1250\nThird\nchild\nFalse\nNaN\nQueenstown\nno\nFalse\n\n\n17\nmale\nNaN\n13.0000\nSecond\nman\nTrue\nNaN\nSouthampton\nyes\nTrue\n\n\n18\nfemale\n31.0\n18.0000\nThird\nwoman\nFalse\nNaN\nSouthampton\nno\nFalse\n\n\n19\nfemale\nNaN\n7.2250\nThird\nwoman\nFalse\nNaN\nCherbourg\nyes\nTrue",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>PzAP bilješke, 14.10.2026.</span>"
+    ]
+  },
+  {
+    "objectID": "PzAP_live_2026_10_14.html#instalacija-dodatnih-biblioteka",
+    "href": "PzAP_live_2026_10_14.html#instalacija-dodatnih-biblioteka",
+    "title": "2  PzAP bilješke, 14.10.2026.",
+    "section": "2.5 Instalacija dodatnih biblioteka",
+    "text": "2.5 Instalacija dodatnih biblioteka\n\ntry:\n    import faker\nexcept:\n    print(\"faker module not installed.\")\n\nU Colab okruženju nije dostupna biblioteka faker koju ćemo koristiti za generiranje lažnih (sintetskih) podataka.\nMožemo je instalirati pomoću pip alata. To možemo izvesti direktno iz bilježnice, ali prije naredbe ćemo dodati ! kako bi se naredba izvršila u ljusci.\n\n!pip install faker\n\nRequirement already satisfied: faker in /home/marcelix/p3.14/lib/python3.14/site-packages (40.43.0)\n\n\nSad možemo prikazati neke od mogućnosti ove biblioteke.\n\nfrom faker import Faker\nfake = Faker(\"hr_HR\")\n\n\nprint(fake.address())\n\nMihaljevac 1a\n15289 Zaprešić",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>PzAP bilješke, 14.10.2026.</span>"
+    ]
+  },
+  {
+    "objectID": "PzAP_live_2026_10_14.html#zadatak-2",
+    "href": "PzAP_live_2026_10_14.html#zadatak-2",
+    "title": "2  PzAP bilješke, 14.10.2026.",
+    "section": "2.6 Zadatak",
+    "text": "2.6 Zadatak\nRetci u tablici iz skupa podataka titanic predstavljaju putnike.\nDodajte stupac naziva name u df u kojem ćete putnicima dodijeliti izmišljena imena.\nPripazite na pridruživanje imena obzirom na spol (sex).\n\n2.6.1 Rješenje.\nPrvi pokušaj.\n\ndf[\"name\"] = \"BLANK\"  # \ndf.head()\n\n\n\n\n\n\n\n\nsex\nage\nfare\nclass\nwho\nadult_male\ndeck\nembark_town\nalive\nalone\nname\n\n\n\n\n0\nmale\n22.0\n7.2500\nThird\nman\nTrue\nNaN\nSouthampton\nno\nFalse\nBLANK\n\n\n1\nfemale\n38.0\n71.2833\nFirst\nwoman\nFalse\nC\nCherbourg\nyes\nFalse\nBLANK\n\n\n2\nfemale\n26.0\n7.9250\nThird\nwoman\nFalse\nNaN\nSouthampton\nyes\nTrue\nBLANK\n\n\n3\nfemale\n35.0\n53.1000\nFirst\nwoman\nFalse\nC\nSouthampton\nyes\nFalse\nBLANK\n\n\n4\nmale\n35.0\n8.0500\nThird\nman\nTrue\nNaN\nSouthampton\nno\nTrue\nBLANK\n\n\n\n\n\n\n\n\ndf[\"name\"]   = [ fake.name() for x in range(891) ]\ndf.head()\n\n\n\n\n\n\n\n\nsex\nage\nfare\nclass\nwho\nadult_male\ndeck\nembark_town\nalive\nalone\nname\n\n\n\n\n0\nmale\n22.0\n7.2500\nThird\nman\nTrue\nNaN\nSouthampton\nno\nFalse\nNikša Božić\n\n\n1\nfemale\n38.0\n71.2833\nFirst\nwoman\nFalse\nC\nCherbourg\nyes\nFalse\nAntonija Šunjić\n\n\n2\nfemale\n26.0\n7.9250\nThird\nwoman\nFalse\nNaN\nSouthampton\nyes\nTrue\nSandra Volarević\n\n\n3\nfemale\n35.0\n53.1000\nFirst\nwoman\nFalse\nC\nSouthampton\nyes\nFalse\nKarla Brlas\n\n\n4\nmale\n35.0\n8.0500\nThird\nman\nTrue\nNaN\nSouthampton\nno\nTrue\nDragica Brajković\n\n\n\n\n\n\n\nDrugi pokušaj.\n(moramo uvažiti spol)\nUočimo da faker podržava generiranje muških i ženskih imena.\n\nfake.name_male(), fake.name_female()\n\n('Karlo Miklečić', 'Zvonko Keleković')\n\n\n\ndef izmisli_ime(sex):\n  \"\"\" Izmisli ime, ali u skladu sa spolom (sex). \"\"\"\n  if sex == \"female\":\n    return fake.name_female()\n  else:\n    return fake.name_male()\n\nizmisli_ime(\"female\")\n\n'Maja Grgurovac'\n\n\n\ndf[\"name\"] = df.sex.apply(izmisli_ime)\ndf.head()\n\n\n\n\n\n\n\n\nsex\nage\nfare\nclass\nwho\nadult_male\ndeck\nembark_town\nalive\nalone\nname\n\n\n\n\n0\nmale\n22.0\n7.2500\nThird\nman\nTrue\nNaN\nSouthampton\nno\nFalse\nMarija Bičak\n\n\n1\nfemale\n38.0\n71.2833\nFirst\nwoman\nFalse\nC\nCherbourg\nyes\nFalse\nMartin Bašić\n\n\n2\nfemale\n26.0\n7.9250\nThird\nwoman\nFalse\nNaN\nSouthampton\nyes\nTrue\nMato Papak\n\n\n3\nfemale\n35.0\n53.1000\nFirst\nwoman\nFalse\nC\nSouthampton\nyes\nFalse\nBranko Baljak\n\n\n4\nmale\n35.0\n8.0500\nThird\nman\nTrue\nNaN\nSouthampton\nno\nTrue\nDora Čotić\n\n\n\n\n\n\n\n\n\n2.6.2 Komentar\nMožete uočiti da hr implementacija imena prema spolu ne radi očekivano.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>PzAP bilješke, 14.10.2026.</span>"
+    ]
+  },
+  {
+    "objectID": "PzAP_live_2026_10_14.html#zadatak-3",
+    "href": "PzAP_live_2026_10_14.html#zadatak-3",
+    "title": "2  PzAP bilješke, 14.10.2026.",
+    "section": "3.1 Zadatak",
+    "text": "3.1 Zadatak\n\nProvjerite ima li među putnicima maloljetne djece koja su putovala sama.\nKoja je starost najmlađe osobe koja je putovala sama?\nNakon koje dobi se putnici više ne smatraju djecom (mlađi od 18, od 21 ili nešto treće)?",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>PzAP bilješke, 14.10.2026.</span>"
+    ]
+  },
+  {
+    "objectID": "PzAP_live_2026_10_14.html#zadatak-4",
+    "href": "PzAP_live_2026_10_14.html#zadatak-4",
+    "title": "2  PzAP bilješke, 14.10.2026.",
+    "section": "3.2 Zadatak",
+    "text": "3.2 Zadatak\n\nUmjesto name stupca napravite dva posebna stupca first_name i last_name s odgovarajućim (generiranim) podacima.\nPreuredite df tako da last_name i first_name budu njezini prvi stupci.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>PzAP bilješke, 14.10.2026.</span>"
+    ]
+  },
+  {
+    "objectID": "PzAP_live_2026_10_14.html#rješenja",
+    "href": "PzAP_live_2026_10_14.html#rješenja",
+    "title": "2  PzAP bilješke, 14.10.2026.",
+    "section": "3.3 Rješenja",
+    "text": "3.3 Rješenja\nTODO.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>PzAP bilješke, 14.10.2026.</span>"
+    ]
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "3  Summary",
+    "section": "",
+    "text": "TODO (Add summary content here)",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Summary</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. (USA) 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "crumbs": [
+      "References"
+    ]
+  }
+]
